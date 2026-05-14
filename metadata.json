@@ -1,0 +1,8 @@
+{
+  "name": "Pinnacle Hub",
+  "description": "Premium engineering marketplace and mastery platform for source code, schematics, and CAD models.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
