@@ -1,10 +1,5 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
-import { useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useStore } from './store/useStore';
 import { AnimatePresence } from 'motion/react';
 
@@ -54,10 +49,75 @@ import AdminManagementPage from './pages/dashboard/admin/AdminManagementPage';
 import ReportsComplaintsPage from './pages/dashboard/admin/ReportsComplaintsPage';
 import AdminSettingsPage from './pages/dashboard/admin/SettingsPage';
 
+function AppRoutes() {
+  const location = useLocation();
+  const { user } = useStore();
+
+  return (
+    <AnimatePresence mode="wait" initial={false}>
+      <Routes location={location}>
+        {/* Public Routes */}
+        <Route element={<PublicLayout />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/marketplace" element={<MarketplacePage />} />
+          <Route path="/categories" element={<CategoriesPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/project/:id" element={<ProjectDetailsPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+        </Route>
+
+        {/* Dashboard Routes */}
+        <Route path="/dashboard" element={<DashboardLayout />}>
+          <Route index element={<Navigate to="overview" replace />} />
+          
+          {/* Buyer Specific */}
+          <Route path="overview" element={<BuyerDashboard />} />
+          <Route path="learning" element={<LearningPage />} />
+          <Route path="purchases" element={<PurchasedProjectsPage />} />
+          <Route path="wishlist" element={<WishlistPage />} />
+          <Route path="cart" element={<CartPage />} />
+          <Route path="checkout" element={<CheckoutPage />} />
+          <Route path="orders" element={<OrderHistoryPage />} />
+          <Route path="notifications" element={<NotificationsPage />} />
+          <Route path="settings" element={<ProfileSettingsPage />} />
+          
+          {/* Seller Specific */}
+          <Route path="seller" element={<SellerDashboard />} />
+          <Route path="upload" element={<UploadProjectPage />} />
+          <Route path="manage" element={<ManageProjectsPage />} />
+          <Route path="seller-orders" element={<OrdersPage />} />
+          <Route path="earnings" element={<EarningsPage />} />
+          <Route path="analytics" element={<SellerAnalyticsPage />} />
+          <Route path="reviews" element={<ReviewsPage />} />
+          <Route path="seller-settings" element={<SellerProfileSettingsPage />} />
+          
+          {/* Admin Specific */}
+          <Route path="admin" element={<AdminDashboard />} />
+          <Route path="users" element={<UserManagementPage />} />
+          <Route path="sellers" element={<SellerManagementPage />} />
+          <Route path="moderation" element={<ProjectModerationPage />} />
+          <Route path="transactions" element={<TransactionsPage />} />
+          <Route path="admin-analytics" element={<AdminAnalyticsPage />} />
+          <Route path="admin-management" element={<AdminManagementPage />} />
+          <Route path="reports" element={<ReportsComplaintsPage />} />
+          <Route path="admin-settings" element={<AdminSettingsPage />} />
+        </Route>
+
+        {/* Fallback */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </AnimatePresence>
+  );
+}
+
 export default function App() {
   const { theme } = useStore();
+  const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
+    setIsHydrated(true);
     // Sync theme with DOM on initial load
     if (theme === 'dark') {
       document.documentElement.classList.add('dark');
@@ -68,63 +128,15 @@ export default function App() {
     }
   }, [theme]);
 
+  if (!isHydrated) return (
+    <div className="min-h-screen flex items-center justify-center bg-surface">
+      <div className="size-12 border-4 border-primary/20 border-t-primary rounded-full animate-spin" />
+    </div>
+  );
+
   return (
     <BrowserRouter>
-      <AnimatePresence mode="wait">
-        <Routes>
-          {/* Public Routes */}
-          <Route element={<PublicLayout />}>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/marketplace" element={<MarketplacePage />} />
-            <Route path="/categories" element={<CategoriesPage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-            <Route path="/project/:id" element={<ProjectDetailsPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-          </Route>
-
-          {/* Dashboard Routes */}
-          <Route path="/dashboard" element={<DashboardLayout />}>
-            <Route index element={<Navigate to="overview" replace />} />
-            
-            {/* Buyer Specific */}
-            <Route path="overview" element={<BuyerDashboard />} />
-            <Route path="learning" element={<LearningPage />} />
-            <Route path="purchases" element={<PurchasedProjectsPage />} />
-            <Route path="wishlist" element={<WishlistPage />} />
-            <Route path="cart" element={<CartPage />} />
-            <Route path="checkout" element={<CheckoutPage />} />
-            <Route path="orders" element={<OrderHistoryPage />} />
-            <Route path="notifications" element={<NotificationsPage />} />
-            <Route path="settings" element={<ProfileSettingsPage />} />
-            
-            {/* Seller Specific */}
-            <Route path="seller" element={<SellerDashboard />} />
-            <Route path="upload" element={<UploadProjectPage />} />
-            <Route path="manage" element={<ManageProjectsPage />} />
-            <Route path="seller-orders" element={<OrdersPage />} />
-            <Route path="earnings" element={<EarningsPage />} />
-            <Route path="analytics" element={<SellerAnalyticsPage />} />
-            <Route path="reviews" element={<ReviewsPage />} />
-            <Route path="seller-settings" element={<SellerProfileSettingsPage />} />
-            
-            {/* Admin Specific */}
-            <Route path="admin" element={<AdminDashboard />} />
-            <Route path="users" element={<UserManagementPage />} />
-            <Route path="sellers" element={<SellerManagementPage />} />
-            <Route path="moderation" element={<ProjectModerationPage />} />
-            <Route path="transactions" element={<TransactionsPage />} />
-            <Route path="admin-analytics" element={<AdminAnalyticsPage />} />
-            <Route path="admin-management" element={<AdminManagementPage />} />
-            <Route path="reports" element={<ReportsComplaintsPage />} />
-            <Route path="admin-settings" element={<AdminSettingsPage />} />
-          </Route>
-
-          {/* Fallback */}
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </AnimatePresence>
+      <AppRoutes />
     </BrowserRouter>
   );
 }

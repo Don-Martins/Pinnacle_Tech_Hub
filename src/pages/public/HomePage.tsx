@@ -38,78 +38,120 @@ export default function HomePage() {
   return (
     <div className="relative overflow-hidden bg-surface">
       {/* Premium Hero Section */}
-      <section className="relative min-h-screen flex items-center pt-24 pb-32 overflow-hidden">
+      <section className="relative min-h-[90vh] flex items-center pt-24 pb-32 overflow-hidden">
         {/* Animated Background Elements */}
         <div className="absolute inset-0 z-0 pointer-events-none">
-          <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-primary/20 rounded-full blur-[160px] animate-pulse-glow" />
-          <div className="absolute bottom-[10%] right-[-5%] w-[45%] h-[45%] bg-secondary/10 rounded-full blur-[140px] animate-pulse-glow" style={{ animationDelay: '1.5s' }} />
+          <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-primary/10 rounded-full blur-[160px] animate-pulse-glow" />
+          <div className="absolute bottom-[0%] right-[-10%] w-[50%] h-[50%] bg-secondary/5 rounded-full blur-[140px] animate-pulse-glow" style={{ animationDelay: '2s' }} />
           
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_80%_60%_at_50%_0%,#000_70%,transparent_100%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:60px_60px]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0)_0%,rgba(var(--color-surface),1)_100%)]" />
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="max-w-7xl mx-auto px-6 relative z-10 w-full">
+          <div className="grid lg:grid-cols-12 gap-12 items-center">
             <motion.div
-              initial={{ opacity: 0, x: -40 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-              className="text-left"
+              className="lg:col-span-7 text-left space-y-10"
             >
-              <h1 className="text-5xl md:text-7xl lg:text-[6rem] font-sans font-black tracking-[-0.06em] text-on-surface mb-10 leading-[0.82]">
-                SOURCE <br /> 
-                <span className="gradient-text">ENGINEERING</span>
-              </h1>
+              <div className="space-y-4">
+                <motion.div 
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.2 }}
+                  className="flex items-center gap-3 text-[10px] font-black tracking-[0.4em] text-primary uppercase"
+                >
+                  <span className="w-12 h-[1px] bg-primary/30" />
+                  <span>The Engineering Standard</span>
+                </motion.div>
+                
+                <h1 className="text-5xl md:text-7xl font-sans font-black tracking-[-0.05em] text-on-surface leading-[0.9] lg:max-w-[15ch]">
+                  Build Real <br /> 
+                  <span className="gradient-text">Engineering Projects</span> <br />
+                  From Anywhere
+                </h1>
+              </div>
               
-              <p className="max-w-xl text-lg md:text-2xl text-on-surface-variant mb-16 font-medium leading-relaxed opacity-80">
-                The premium hub for professional engineering blueprints, high-fidelity source code, and elite technical assets.
+              <p className="max-w-xl text-lg md:text-xl text-on-surface-variant font-medium leading-relaxed opacity-70">
+                Learn Arduino, robotics, IoT, and DIY electronics through step-by-step video tutorials while buying the exact materials needed to build each project.
               </p>
               
-              <div className="flex flex-wrap items-center gap-6">
-                <Link to="/marketplace" className="group relative flex-grow sm:flex-none px-12 py-6 bg-primary text-on-primary rounded-2xl font-black text-xl transition-all overflow-hidden shadow-2xl shadow-primary/20">
-                  <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+              <div className="flex flex-wrap items-center gap-5">
+                <Link to="/marketplace" className="group relative px-10 py-5 bg-primary text-on-primary rounded-2xl font-black text-lg transition-all overflow-hidden shadow-2xl shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5">
+                  <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                   <span className="relative flex items-center justify-center gap-2">
-                    Browse Projects <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
+                    Explore Projects <ArrowRight className="w-5 h-5 group-hover:translate-x-1.5 transition-transform" />
                   </span>
                 </Link>
-                <Link to="/dashboard/admin" className="flex-grow sm:flex-none px-12 py-6 bg-surface-container border border-outline-variant/20 backdrop-blur-xl rounded-2xl font-black text-xl hover:bg-surface-variant/80 transition-all text-on-surface flex items-center justify-center gap-3 group">
-                  <ShieldCheck className="w-6 h-6 text-primary" />
-                  <span>Admin Panel</span>
+                <Link to="/register" className="px-10 py-5 bg-surface-container border border-outline-variant/10 backdrop-blur-xl rounded-2xl font-black text-lg hover:bg-surface-variant/80 transition-all text-on-surface flex items-center justify-center gap-3 group border-white/5">
+                  <Users className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
+                  <span>Become a Creator</span>
                 </Link>
+              </div>
+
+              <div className="pt-8 flex items-center gap-8 grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
+                 <div className="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Trusted By Teams At</div>
+                 <div className="flex gap-6 items-center">
+                    <span className="font-sans font-black text-xl tracking-tighter">NEXUS</span>
+                    <span className="font-sans font-black text-xl tracking-tighter">CIRCUIT</span>
+                    <span className="font-sans font-black text-xl tracking-tighter">CORE.IO</span>
+                 </div>
               </div>
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, x: 40, scale: 0.95 }}
-              animate={{ opacity: 1, x: 0, scale: 1 }}
-              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-              className="relative hidden lg:block"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+              className="lg:col-span-5 relative hidden lg:block"
             >
-              <div className="relative z-10 rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl">
-                <img 
-                  src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=1200&h=1000" 
-                  alt="Industrial Engineering" 
-                  className="w-full h-full object-cover aspect-[4/5]" 
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-surface/40 via-transparent to-transparent" />
-              </div>
-              
-              {/* Floating Tech Elements */}
-              <motion.div 
-                animate={{ y: [0, -15, 0] }}
-                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -bottom-10 -left-10 z-20 glass-panel p-8 max-w-[280px]"
-              >
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-12 h-12 bg-primary/20 rounded-2xl flex items-center justify-center shadow-lg shadow-primary/20">
-                    <Rocket className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <div className="text-[10px] font-bold text-primary uppercase tracking-[0.2em] mb-1">Live Updates</div>
-                    <div className="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Global Sync</div>
-                  </div>
+              <div className="relative group">
+                {/* Decorative Rings */}
+                <div className="absolute -inset-10 border border-primary/10 rounded-full animate-spin-slow pointer-events-none" />
+                <div className="absolute -inset-20 border border-secondary/5 rounded-full animate-spin-slow-reverse pointer-events-none" />
+                
+                <div className="relative z-10 rounded-[3.5rem] overflow-hidden border border-white/10 shadow-[0_40px_100px_rgba(0,0,0,0.4)] transform group-hover:scale-[1.02] transition-transform duration-700">
+                  <img 
+                    src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=1000&h=1200" 
+                    alt="Engineering Workspace" 
+                    className="w-full h-full object-cover aspect-[4/5] brightness-90 group-hover:brightness-100 transition-all duration-700" 
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-surface/80 via-transparent to-transparent opacity-60" />
                 </div>
-                <div className="text-3xl font-black tracking-tighter text-on-surface">12,402+ Blueprints</div>
-              </motion.div>
+                
+                {/* Information Floating Cards */}
+                <motion.div 
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                  className="absolute -bottom-6 -left-12 z-20 glass-panel p-6 max-w-[240px] shadow-2xl border-white/5"
+                >
+                  <div className="flex flex-col gap-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-primary/20 rounded-xl flex items-center justify-center">
+                        <Code2 className="w-5 h-5 text-primary" />
+                      </div>
+                      <div className="text-[10px] font-bold text-on-surface uppercase tracking-widest">Repository Status</div>
+                    </div>
+                    <div className="space-y-1">
+                      <div className="text-2xl font-black tracking-tighter text-green-500">99.2% UP</div>
+                      <div className="text-[8px] font-bold text-on-surface-variant uppercase tracking-widest">Global Node Latency: 12ms</div>
+                    </div>
+                  </div>
+                </motion.div>
+
+                <motion.div 
+                  animate={{ y: [0, 15, 0] }}
+                  transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                  className="absolute top-12 -right-8 z-20 glass-panel py-4 px-6 shadow-2xl border-white/5"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
+                    <div className="text-[10px] font-bold uppercase tracking-widest">Creator Verified</div>
+                  </div>
+                </motion.div>
+              </div>
             </motion.div>
           </div>
         </div>

@@ -18,12 +18,12 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="sticky top-0 w-full z-50 bg-surface/80 backdrop-blur-xl border-b border-outline-variant/10 shadow-sm">
+    <nav className="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl border-b border-outline-variant/10 shadow-sm overflow-x-hidden transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-16 md:h-20">
           {/* Logo */}
           <div className="flex items-center gap-8">
-            <Link to="/" className="flex items-center gap-2 group">
+            <Link to="/" className="flex items-center gap-2 group shrink-0">
               <div className="p-1.5 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
                 <Layers className="w-6 h-6 text-primary" />
               </div>
@@ -37,11 +37,15 @@ export default function Navbar() {
                   key={link.name}
                   to={link.href}
                   className={cn(
-                    "text-sm font-medium transition-colors hover:text-primary",
-                    location.pathname === link.href ? "text-primary border-b-2 border-primary pb-0.5" : "text-on-surface-variant"
+                    "text-sm font-bold transition-all hover:text-primary relative group py-2",
+                    location.pathname === link.href ? "text-primary" : "text-on-surface-variant"
                   )}
                 >
                   {link.name}
+                  <span className={cn(
+                    "absolute bottom-0 left-0 h-[2px] bg-primary transition-all duration-300",
+                    location.pathname === link.href ? "w-full" : "w-0 group-hover:w-full"
+                  )} />
                 </Link>
               ))}
             </div>
@@ -49,34 +53,41 @@ export default function Navbar() {
 
           {/* Right Section */}
           <div className="flex items-center gap-2 sm:gap-4">
-            <div className="hidden sm:flex items-center bg-surface-container-high rounded-full px-3 py-1.5 border border-outline-variant/10 focus-within:border-primary/50 transition-all">
+            <div className="hidden lg:flex items-center bg-surface-container-high rounded-full px-4 py-2 border border-outline-variant/10 focus-within:border-primary/50 transition-all shadow-inner">
               <Search className="w-4 h-4 text-on-surface-variant mr-2" />
               <input 
                 type="text" 
                 placeholder="Search projects..." 
-                className="bg-transparent border-none focus:outline-none text-xs w-32 placeholder:text-on-surface-variant/50"
+                className="bg-transparent border-none focus:outline-none text-xs w-32 xl:w-48 placeholder:text-on-surface-variant/50"
               />
             </div>
 
             <button 
               onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-              className="p-2 text-on-surface-variant hover:text-primary transition-colors rounded-full hover:bg-surface-variant/50"
+              className="p-2.5 text-on-surface-variant hover:text-primary transition-all rounded-full hover:bg-surface-variant/50 active:scale-95"
             >
               {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
             </button>
 
             {user ? (
-              <Link to="/dashboard" className="p-2 text-on-surface-variant hover:text-primary transition-colors rounded-full hover:bg-surface-variant/50">
-                <User className="w-5 h-5" />
+              <Link to="/dashboard" className="p-1 border border-outline-variant/20 rounded-full hover:border-primary/50 transition-all">
+                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center font-bold text-xs text-primary shadow-sm overflow-hidden">
+                  {user.avatar ? <img src={user.avatar} alt="" className="w-full h-full object-cover" /> : user.name[0]}
+                </div>
               </Link>
             ) : (
-              <Link to="/login" className="text-sm font-semibold text-primary hover:text-primary-container px-4 py-2 transition-colors">
-                Sign In
-              </Link>
+              <div className="flex items-center gap-2">
+                <Link to="/login" className="hidden sm:block text-sm font-bold text-on-surface-variant hover:text-primary px-4 py-2 transition-colors">
+                  Login
+                </Link>
+                <Link to="/register" className="text-sm font-bold bg-primary text-on-primary px-5 py-2 rounded-xl hover:shadow-[0_0_20px_rgba(59,130,246,0.3)] hover:-translate-y-0.5 active:translate-y-0 transition-all shrink-0">
+                  Register
+                </Link>
+              </div>
             )}
 
             <button 
-              className="md:hidden p-2 text-on-surface-variant"
+              className="md:hidden p-2 text-on-surface-variant hover:text-on-surface active:scale-90 transition-all"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
               {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}

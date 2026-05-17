@@ -5,13 +5,13 @@ import { motion } from 'motion/react';
 
 export default function PublicLayout() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-surface overflow-x-hidden">
       <Navbar />
       <motion.main 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="flex-grow pt-0"
+        className="flex-grow w-full relative pt-16 md:pt-20"
       >
         <Outlet />
       </motion.main>

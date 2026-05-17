@@ -94,8 +94,8 @@ export default function SellerDashboard() {
                     />
                   ))}
                </div>
-               <div className="grid grid-cols-12 gap-2 mt-4 px-2 text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">
-                 {['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'].map(m => <div key={m} className="text-center">{m}</div>)}
+               <div className="flex justify-between mt-4 px-2 text-[8px] sm:text-[10px] font-bold text-on-surface-variant uppercase tracking-widest gap-1 overflow-x-auto no-scrollbar">
+                 {['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'].map(m => <div key={m} className="flex-1 text-center min-w-[30px]">{m}</div>)}
                </div>
             </div>
 
